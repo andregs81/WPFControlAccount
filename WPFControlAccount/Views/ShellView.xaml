@@ -1,0 +1,30 @@
+﻿<Controls:MetroWindow  x:Class="WPFControlAccount.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:call="http://www.caliburnproject.org"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d" 
+        Title="{Binding DisplayName}" Height="450" Width="800" >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Column="0" Margin="3" Background="CornflowerBlue">
+            <Button x:Name="LoadAccountPage" Content="Contas" Margin="0,0,0,3" />
+            <Button x:Name="LoadLaunchAccountPage" Content="Lançamentos" />
+        </StackPanel>
+
+        <Border Grid.Column="1" Grid.Row="0" Margin="6" BorderBrush="Black" >
+            <ContentControl  x:Name="ActiveItem"/>
+        </Border>
+    </Grid>
+</Controls:MetroWindow> 
