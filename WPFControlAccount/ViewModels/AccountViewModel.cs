@@ -3,34 +3,27 @@ using System;
 using System.Linq;
 using System.Windows;
 using WPFControlAccount.Data;
+using WPFControlAccount.Data.Repository;
 using WPFControlAccount.Models;
 
 namespace WPFControlAccount.ViewModels
 {
     public class AccountViewModel : Screen
     {
+        public BindableCollection<Account> Accounts { get; set; }
+        private readonly IRepository<Account> repo;
         public AccountViewModel()
         {
-            //ID = Guid.NewGuid();
+            repo = new Repository<Account>();
             Accounts = new BindableCollection<Account>();
             Accounts.AddRange(DataContext.GetAllAccounts());
         }
-        private Guid id;
 
-        public Guid ID
-        {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                id = value;
-            }
-        }
+        public string Label => "Cadastro de Contas";
+
+        private Guid ID { get; set; }
 
         private string initial;
-
         public string Initial
         {
             get { return initial; }
@@ -38,13 +31,12 @@ namespace WPFControlAccount.ViewModels
             {
                 initial = value;
                 NotifyOfPropertyChange(() => Initial);
-                NotifyOfPropertyChange(() => CanAddAccount);
                 NotifyOfPropertyChange(() => Accounts);
+                NotifyOfPropertyChange(() => CanSave);
             }
         }
 
         private string accountName;
-
         public string AccountName
         {
             get { return accountName; }
@@ -52,19 +44,18 @@ namespace WPFControlAccount.ViewModels
             {
                 accountName = value;
                 NotifyOfPropertyChange(() => AccountName);
-                NotifyOfPropertyChange(() => CanAddAccount);
                 NotifyOfPropertyChange(() => Accounts);
+                NotifyOfPropertyChange(() => CanSave);
             }
         }
 
-        public BindableCollection<Account> Accounts { get; set; }
-
-        public bool CanAddAccount => IsValid();
         public void AddAccountAsync()
         {
             if (IsValid())
             {
-                Accounts.Add(new Account { Initials = Initial, AccountName = AccountName });
+                repo.Add(new Account { AccountName = AccountName, Initials = Initial });
+                repo.Commit();
+                UpdateList();
                 ClearAllFiles();
             }
             else
@@ -73,21 +64,10 @@ namespace WPFControlAccount.ViewModels
             }
         }
 
-        public void Update()
+        private void UpdateList()
         {
-            var account = Accounts.FirstOrDefault(a => a.ID == ID);
-            account.AccountName = AccountName;
-            account.Initials = Initial;
-            Accounts.Refresh();
-            ClearAllFiles();
-        }
-
-        public void Save()
-        {
-            if (ID == Guid.Empty)
-                AddAccountAsync();
-            else
-                Update();
+            Accounts.Clear();
+            Accounts.AddRange(DataContext.GetAllAccounts());
         }
 
         private bool IsValid()
@@ -99,7 +79,6 @@ namespace WPFControlAccount.ViewModels
         {
             Initial = "";
             AccountName = "";
-            ID = Guid.Empty;
         }
 
         public void SetValue(Account source)
@@ -109,5 +88,22 @@ namespace WPFControlAccount.ViewModels
             ID = source.ID;
         }
 
+        public void Update()
+        {
+            var account = Accounts.FirstOrDefault(a => a.ID == ID);
+            account.AccountName = AccountName;
+            account.Initials = Initial;
+            Accounts.Refresh();
+            ClearAllFiles();
+        }
+
+        public bool CanSave => IsValid();
+        public void Save()
+        {
+            if (ID == Guid.Empty)
+                AddAccountAsync();
+            else
+                Update();
+        }
     }
 }

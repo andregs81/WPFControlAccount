@@ -7,7 +7,7 @@
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d" 
-        Title="{Binding DisplayName}" Height="450" Width="800" >
+        Title="{Binding DisplayName}" Height="450" Width="800" ShowMaxRestoreButton="False" ResizeMode="NoResize">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,8 +19,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Vertical" Grid.Column="0" Margin="3" Background="CornflowerBlue">
-            <Button x:Name="LoadAccountPage" Content="Contas" Margin="0,0,0,3" />
-            <Button x:Name="LoadLaunchAccountPage" Content="Lançamentos" />
+            <Button x:Name="LoadAccountPage" Style="{StaticResource MenuButton}" Content="Contas" />
+            <Button x:Name="LoadLaunchAccountPage" Style="{StaticResource MenuButton}" Content="Lançamentos" />
+            <Button x:Name="LoadLaunchXAccountPage" Style="{StaticResource MenuButton}" Content="Contas X Lançamento" />
         </StackPanel>
 
         <Border Grid.Column="1" Grid.Row="0" Margin="6" BorderBrush="Black" >

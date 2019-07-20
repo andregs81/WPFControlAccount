@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
+using WPFControlAccount.Data;
 
 namespace WPFControlAccount
 {
@@ -21,6 +22,16 @@ namespace WPFControlAccount
             typeof(FrameworkElement),
             new FrameworkPropertyMetadata(
                 XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
+            InitializeDataBase();
+        }
+
+        private static void InitializeDataBase()
+        {
+            using (var ctx = new MyDbContext())
+            {
+                ctx.Database.CreateIfNotExists();
+            }
         }
     }
 }

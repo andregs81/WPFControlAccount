@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
+using WPFControlAccount.Data;
+using WPFControlAccount.Models;
 
 namespace WPFControlAccount.ViewModels
 {

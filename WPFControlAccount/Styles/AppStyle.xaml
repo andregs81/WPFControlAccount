@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--TextBlockLabel-->
+    <Style x:Key="TextBlockLabel" TargetType="{x:Type TextBlock}" BasedOn="{x:Null}">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <!--TextBlockTitle-->
+    <Style x:Key="TextBlockTitle" TargetType="{x:Type TextBlock}" BasedOn="{x:Null}">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="28" />
+    </Style>
+    
+    <!--ButtonSave-->
+    <Style x:Key="ButtonSave" TargetType="{x:Type Button}">
+        <Setter Property="Content" Value="{iconPacks:FontAwesome Kind=CheckSolid}" />
+        <Setter Property="Width" Value="26" />
+        <Setter Property="Height" Value="26" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Margin" Value="3, 0, 0, 0"/>
+    </Style>
+
+    <!--ButtonSave-->
+    <Style x:Key="MenuButton" TargetType="{x:Type Button}">
+        <Setter Property="Margin" Value="0, 0, 0, 1" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+</ResourceDictionary>

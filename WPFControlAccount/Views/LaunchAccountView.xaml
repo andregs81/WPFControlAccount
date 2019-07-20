@@ -11,24 +11,33 @@
 
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label  Content="Despesa" FontWeight="Bold"/>
-        <ComboBox Grid.Row="1" 
+        <StackPanel Grid.ColumnSpan="6"                    
+                    Orientation="Vertical"
+                    Margin="0,0,0,10">
+            <TextBlock Text="{Binding Label}" Style="{StaticResource TextBlockTitle}" />
+            <Separator />
+        </StackPanel>
+
+        <TextBlock  Grid.Row="1" Text="Despesa" Style="{StaticResource TextBlockLabel}"/>
+        <ComboBox Grid.Row="2" 
                   x:Name="Accounts" 
                   ItemsSource="{Binding Accounts}" 
-                  Width="200" HorizontalAlignment="Left"
+                  Width="165" HorizontalAlignment="Left"
                   SelectedValue="{Binding SelectedAccount}"
                   Margin="0, 0, 6, 0">
             <ComboBox.ItemTemplate>
@@ -38,19 +47,21 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Label Grid.Column="1" Content="Vencimento" FontWeight="Bold"/>
-        <DatePicker Grid.Column="1" Grid.Row="1" Text="{Binding ExperitationDate}"  Margin="0, 0, 6, 0"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="Data documento" Style="{StaticResource TextBlockLabel}"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" Text="{Binding AccountDate}"  Margin="0, 0, 6, 0"/>
 
-        <Label Grid.Column="2" Content="Valor R$" FontWeight="Bold"/>
-        <TextBox Grid.Column="2" 
-            Grid.Row="1" 
-            Width="100"
-            Margin="0, 0, 6, 0"
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="Vencimento" Style="{StaticResource TextBlockLabel}"/>
+        <DatePicker Grid.Column="2" Grid.Row="2" Text="{Binding ExperitationDate}"  Margin="0, 0, 6, 0"/>
+
+        <TextBlock Grid.Column="4" Grid.Row="1" Text="Valor R$" Style="{StaticResource TextBlockLabel}"/>
+        <TextBox Grid.Column="4" 
+                 Grid.Row="2" 
+                 Width="100"
             Text="{Binding AccountValue, StringFormat={}{0:C2}}"/>
-        <Button Grid.Column="3" Grid.Row="1" x:Name="AddLauch">OK</Button>
-
-        <DataGrid Grid.Row="3"
-                  Grid.ColumnSpan="4"
+        <Button Grid.Column="5" Grid.Row="2" x:Name="AddLauch" Style="{StaticResource ButtonSave}"/>
+        
+        <DataGrid Grid.Row="4"
+                  Grid.ColumnSpan="6"
                   x:Name="Launchs" 
                   SelectionUnit="FullRow"
                   SelectionMode="Extended"
@@ -58,11 +69,12 @@
                   CanUserAddRows="False"
                   IsReadOnly="True"
                   AutoGenerateColumns="False" ItemsSource="{Binding Launchs}"
-                  Margin="0, 6, 0, 0">
+                  Margin="0, 20, 0, 0">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="auto"  Binding="{Binding Account.AccountName}" Header="Despesa" />
+                <DataGridTextColumn Width="3*"  Binding="{Binding Account.AccountName}" Header="Despesa" />
+                <DataGridTextColumn Width="auto"  Binding="{Binding AccountDate, StringFormat='dd/MM/yyyy'}" Header="Data Documento" />
                 <DataGridTextColumn Width="auto"  Binding="{Binding ExperitationDate, StringFormat='dd/MM/yyyy'}" Header="Vencimento" />
-                <DataGridTextColumn Width="auto"  Binding="{Binding AccountValue}" Header="Valor" />
+                <DataGridTextColumn Width="*"  Binding="{Binding AccountValue, StringFormat={}{0:C2}}" Header="Valor"  />
             </DataGrid.Columns>
         </DataGrid>
 

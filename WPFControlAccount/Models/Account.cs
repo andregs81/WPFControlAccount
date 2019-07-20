@@ -16,5 +16,6 @@ namespace WPFControlAccount.Models
         public Guid ID { get; set; }
         public string Initials { get; set; }
         public string AccountName { get; set; }
+        public DateTime StartDate { get; set; }
     }
 }
